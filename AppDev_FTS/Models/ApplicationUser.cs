@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AppDev_FTS.Models
 {
@@ -16,18 +16,13 @@ namespace AppDev_FTS.Models
             // Add custom user claims here
             return userIdentity;
         }
-    }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
+        [StringLength(225)]
+        [Display(Name = "Fullname")]
+        public string FullName { get; set; }
+        [Range(0, int.MaxValue)]
+        public int Age { get; set; }
+        [StringLength(255)]
+        public string Address { get; set; }
     }
 }
