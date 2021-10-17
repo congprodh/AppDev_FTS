@@ -93,6 +93,8 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
