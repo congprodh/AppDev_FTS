@@ -4,6 +4,8 @@ using AppDev_FTS.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +17,11 @@ namespace AppDev_FTS.Areas.Admin.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly ApplicationDbContext _context;
+
+        public AccountController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
         public ApplicationSignInManager SignInManger
         {
@@ -41,9 +48,21 @@ namespace AppDev_FTS.Areas.Admin.Controllers
         }
 
         // GET: Admin/Account
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var trainerRole = await _context.Roles.SingleOrDefaultAsync(r => r.Name == Role.Trainer);
+            var staffRole = await _context.Roles.SingleOrDefaultAsync(r => r.Name == Role.Staff);
+
+            var model = new UsersGroupViewModel()
+            {
+                Trainers = await _context.Users
+                    .Where(u => u.Roles.Any(r => r.RoleId == trainerRole.Id))
+                    .ToListAsync(),
+                Staffs = await _context.Users
+                    .Where(u => u.Roles.Any(r => r.RoleId == staffRole.Id))
+                    .ToListAsync(),
+            };
+            return View(model);
         }
 
         [HttpGet]

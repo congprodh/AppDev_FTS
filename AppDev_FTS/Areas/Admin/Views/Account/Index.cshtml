@@ -1,4 +1,4 @@
-﻿
+﻿@model AppDev_FTS.ViewModels.UsersGroupViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -6,5 +6,59 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create a new Account", "Create", null, new {@class = "btn btn-primary"})
+    @Html.ActionLink("Create a new Account", "Create", null, new { @class = "btn btn-primary" })
 </p>
+
+</p>
+
+<h3>Staff Account</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 0;}
+        @foreach (var staff in Model.Staffs)
+        {
+            <tr>
+                <th scope="row">@{i++;}@i</th>
+                <td>@staff.UserName</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Acconut", new { id = staff.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Account", new { id = staff.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Details", "Details", "Account", new { id = staff.Id }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Trainer Account</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{i = 0;}
+        @foreach (var trainer in Model.Trainers)
+        {
+            <tr>
+                <th scope="row">@{i++;}@i</th>
+                <td>@trainer.UserName</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Acconut", new { id = trainer.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", "Account", new { id = trainer.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Details", "Details", "Account", new { id = trainer.Id }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 
