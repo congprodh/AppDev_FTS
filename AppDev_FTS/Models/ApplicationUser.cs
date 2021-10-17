@@ -20,9 +20,17 @@ namespace AppDev_FTS.Models
         [StringLength(225)]
         [Display(Name = "Fullname")]
         public string FullName { get; set; }
+
         [Range(0, int.MaxValue)]
         public int Age { get; set; }
+
         [StringLength(255)]
         public string Address { get; set; }
+
+        [StringLength(255)]
+        public string Education { get; set; }
+
+        [StringLength(255)]
+        public string Specialty { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ResetPasswordViewModel = AppDev_FTS.Models.ResetPasswordViewModel;
 
 namespace AppDev_FTS.Areas.Admin.Controllers
 {
@@ -197,7 +198,48 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+        //[HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "The user does not exist";
+                return View(model);
+            }
+
+            var roles = await UserManager.GetRolesAsync(user.Id);
+            if (!roles.All(r => r == Role.Staff || r == Role.Trainer))
+            {
+                ViewBag.ErrorMessage = "The user cannot be reset. Permission is denied.";
+                return View(model);
+            }
+
+            model.Code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            AddErrors(result);
+            return View();
+        }
+
         public async Task<ActionResult> ConfirmedDelete(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
@@ -216,7 +258,6 @@ namespace AppDev_FTS.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Delete), new { id, saveChangesError = true });
         }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

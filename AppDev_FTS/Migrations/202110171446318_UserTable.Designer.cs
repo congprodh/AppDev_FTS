@@ -13,7 +13,7 @@ namespace AppDev_FTS.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202110170941430_UserTable"; }
+            get { return "202110171446318_UserTable"; }
         }
         
         string IMigrationMetadata.Source

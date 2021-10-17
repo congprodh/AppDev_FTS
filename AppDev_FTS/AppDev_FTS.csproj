@@ -182,9 +182,9 @@
     <Compile Include="Migrations\202110161515158_InitalCreate.Designer.cs">
       <DependentUpon>202110161515158_InitalCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110170941430_UserTable.cs" />
-    <Compile Include="Migrations\202110170941430_UserTable.Designer.cs">
-      <DependentUpon>202110170941430_UserTable.cs</DependentUpon>
+    <Compile Include="Migrations\202110171446318_UserTable.cs" />
+    <Compile Include="Migrations\202110171446318_UserTable.Designer.cs">
+      <DependentUpon>202110171446318_UserTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -217,6 +217,7 @@
     <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\ResetPassword.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -286,8 +287,8 @@
     <EmbeddedResource Include="Migrations\202110161515158_InitalCreate.resx">
       <DependentUpon>202110161515158_InitalCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110170941430_UserTable.resx">
-      <DependentUpon>202110170941430_UserTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110171446318_UserTable.resx">
+      <DependentUpon>202110171446318_UserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
