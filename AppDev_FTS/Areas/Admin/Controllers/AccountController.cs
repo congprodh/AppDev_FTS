@@ -171,6 +171,52 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Delete(string id, bool? saveChangesError = false)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new InfoViewModel()
+            {
+                User = user,
+                Roles = new List<string>(await UserManager.GetRolesAsync(user.Id))
+            };
+
+            if (saveChangesError == true)
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed. Try again, and if the problem persists " +
+                    "see your system administrator.";
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+        public async Task<ActionResult> ConfirmedDelete(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            IdentityResult result = await UserManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index), "Account");
+            }
+
+            return RedirectToAction(nameof(Delete), new { id, saveChangesError = true });
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
