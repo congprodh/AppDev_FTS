@@ -115,6 +115,61 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var model = new InfoViewModel()
+            {
+                User = user,
+                Roles = new List<string>(await UserManager.GetRolesAsync(id))
+            };
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(InfoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = model.User;
+                var userinDb = await UserManager.FindByIdAsync(user.Id);
+
+                if (userinDb == null)
+                    return HttpNotFound();
+                userinDb.FullName = user.FullName;
+                userinDb.Age = user.Age;
+                userinDb.Address = user.Address;
+                userinDb.Email = user.Email;
+                userinDb.UserName = user.Email;
+
+                IdentityResult result = await UserManager.UpdateAsync(userinDb);
+
+                // if (model.Specialty != null)
+                // {
+                //    var profile = await _context.TrainerProfiles.SingleOrDefaultAsync(p => p.UserId == userinDb.Id);
+                //    profile.Specialty = model.Specialty;
+                // }
+                await _context.SaveChangesAsync();
+
+                if (result.Succeeded)
+                    return RedirectToAction(nameof(Index));
+                else
+                    AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         private void AddErrors(IdentityResult result)
         {

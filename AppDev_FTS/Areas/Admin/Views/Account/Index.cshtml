@@ -15,8 +15,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">UserName</th>
+            <th scope="col">No.</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Full name</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -24,15 +25,16 @@
         @{int i = 0;}
         @foreach (var staff in Model.Staffs)
         {
-            <tr>
-                <th scope="row">@{i++;}@i</th>
-                <td>@staff.UserName</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Acconut", new { id = staff.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "Delete", "Account", new { id = staff.Id }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Details", "Details", "Account", new { id = staff.Id }, new { @class = "btn btn-warning" })
-                </td>
-            </tr>
+        <tr>
+            <th scope="row">@{i++;}@i</th>
+            <td>@staff.UserName</td>
+            <td>@staff.FullName</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Account", new { id = staff.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "Delete", "Account", new { id = staff.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Details", "Details", "Account", new { id = staff.Id }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -41,8 +43,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">No.</th>
             <th scope="col">UserName</th>
+            <th scope="col">Full Name</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -50,15 +53,16 @@
         @{i = 0;}
         @foreach (var trainer in Model.Trainers)
         {
-            <tr>
-                <th scope="row">@{i++;}@i</th>
-                <td>@trainer.UserName</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Acconut", new { id = trainer.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "Delete", "Account", new { id = trainer.Id }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Details", "Details", "Account", new { id = trainer.Id }, new { @class = "btn btn-warning" })
-                </td>
-            </tr>
+        <tr>
+            <th scope="row">@{i++;}@i</th>
+            <td>@trainer.UserName</td>
+            <td>@trainer.FullName</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Account", new { id = trainer.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "Delete", "Account", new { id = trainer.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Details", "Details", "Account", new { id = trainer.Id }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
         }
     </tbody>
 </table> 
