@@ -148,6 +148,26 @@ namespace AppDev_FTS.Areas.Staff.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        public async Task<ActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var model = new InfoViewModel()
+            {
+                User = user,
+                Roles = new List<string>(await UserManager.GetRolesAsync(id))
+            };
+            return View(model);
+        }
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

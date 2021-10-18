@@ -1,0 +1,13 @@
+﻿@model AppDev_FTS.ViewModels.InfoViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@Html.Partial("InfoProfile")
+
+<p>
+    @Html.ActionLink("Back to the Index page", "Index", null, new { @class = "btn btn-primary" })
+</p>
+

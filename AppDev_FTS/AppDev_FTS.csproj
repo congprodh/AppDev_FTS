@@ -226,6 +226,7 @@
     <Content Include="Areas\Staff\Views\Account\Index.cshtml" />
     <Content Include="Areas\Staff\Views\Account\Create.cshtml" />
     <Content Include="Areas\Staff\Views\Account\Edit.cshtml" />
+    <Content Include="Areas\Staff\Views\Account\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
