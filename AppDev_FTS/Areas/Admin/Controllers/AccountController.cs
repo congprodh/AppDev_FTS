@@ -198,7 +198,6 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             return View(model);
         }
 
-        //[HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
 
         [HttpGet]
         public ActionResult ResetPassword()
@@ -241,6 +240,7 @@ namespace AppDev_FTS.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public async Task<ActionResult> ConfirmedDelete(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
