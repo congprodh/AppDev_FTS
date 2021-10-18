@@ -7,7 +7,6 @@ namespace AppDev_FTS.ViewModels
     public class UsersGroupViewModel
     {
         public List<ApplicationUser> Staffs { get; set; }
-
         public List<ApplicationUser> Trainers { get; set; }
         public List<ApplicationUser> Trainees { get; set; }
     }

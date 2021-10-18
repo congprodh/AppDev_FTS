@@ -64,5 +64,43 @@ namespace AppDev_FTS.Areas.Staff.Controllers
             return View(model);
         }
 
-       
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var model = new AccountViewModel()
+            {
+                Roles = new List<string>() { Role.Trainee}
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(AccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user.Id, model.Role);
+                    return RedirectToAction(nameof(Index));
+                }
+                AddErrors(result);
+            }
+            model.Roles = new List<string>() { Role.Trainee};       //load khi submit form
+
+            return View(model);      // If we got this far, something failed, redisplay form
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+    }
 }

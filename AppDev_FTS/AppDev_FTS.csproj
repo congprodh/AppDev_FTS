@@ -224,6 +224,7 @@
     <Content Include="Areas\Staff\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Staff\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Staff\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Staff\Views\Account\Create.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
