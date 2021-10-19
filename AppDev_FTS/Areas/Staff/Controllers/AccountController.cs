@@ -10,11 +10,14 @@ using System.Web.Mvc;
 using AppDev_FTS.Models;
 using AppDev_FTS.Utils;
 using AppDev_FTS.ViewModels;
+using Microsoft.Ajax.Utilities;
+using System;
 
 namespace AppDev_FTS.Areas.Staff.Controllers
 {
     public class AccountController : Controller
     {
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly ApplicationDbContext _context;
@@ -49,14 +52,27 @@ namespace AppDev_FTS.Areas.Staff.Controllers
             }
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string searchString)
         {
-         
             var traineeRole = await _context.Roles.SingleOrDefaultAsync(r => r.Name == Role.Trainee);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var data = new UsersGroupViewModel
+                {
+                    Trainees = await _context.Users
+                        .Where(u => u.Roles.Any(r => r.RoleId == traineeRole.Id))
+                        .Where((c => (!String.IsNullOrEmpty(c.FullName) && c.FullName.Contains(searchString)) || searchString.Contains(c.Age.ToString())))
+                        .ToListAsync()
+                };
+                return View(data);
+
+                //users = users.Where(c => c.Age.Contains(searchString)).ToList();
+            }
 
             var model = new UsersGroupViewModel
             {
-                Trainees = await _context.Users
+                Trainees = await _context.Users         
                     .Where(u => u.Roles.Any(r => r.RoleId == traineeRole.Id))
                     .ToListAsync(),
             };

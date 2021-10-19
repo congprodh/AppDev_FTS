@@ -3,11 +3,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>View Index Trainee Account</h2>
 
 <p>
-    @Html.ActionLink("Create a new Account", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create Trainee Account", "Create", null, new { @class = "btn btn-primary" })
 </p>
+
+
+<div class="form-group">
+    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.TextBox("searchString", null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
+</div>
+
+
+@*<form>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Srearch Trainee by Name and Age" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>*@
 
 <h3>Trainee Account</h3>
 <table class="table">
