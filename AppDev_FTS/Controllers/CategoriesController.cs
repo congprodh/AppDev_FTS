@@ -49,5 +49,31 @@ namespace AppDev_FTS.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == id);
+            if (categoryInDb == null) return HttpNotFound();
+            Categories category = categoryInDb;
+            return View(category);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Categories category)
+        {
+            if (!ModelState.IsValid) return View(category);
+
+            var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == category.Id);
+
+            if (categoryInDb == null) return HttpNotFound();
+
+            categoryInDb.CategoryName = category.CategoryName;
+            categoryInDb.Description = category.Description;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
