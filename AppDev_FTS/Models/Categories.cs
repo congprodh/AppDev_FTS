@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AppDev_FTS.Models
 {
-    public class Category
+    public class Categories
     {
         [Key]
         public int Id { get; set; }

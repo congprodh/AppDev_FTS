@@ -68,7 +68,6 @@ namespace AppDev_FTS.Areas.Staff.Controllers
                 };
                 return View(data);
                  
-                //users = users.Where(c => c.Age.Contains(searchString)).ToList();
             }
 
             var model = new UsersGroupViewModel

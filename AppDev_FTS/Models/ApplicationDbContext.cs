@@ -10,7 +10,7 @@ namespace AppDev_FTS.Models
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Categories> Categories { get; set; }
 
         public static ApplicationDbContext Create()
         {
