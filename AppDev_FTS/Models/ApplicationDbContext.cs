@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace AppDev_FTS.Models
 {
@@ -8,6 +9,8 @@ namespace AppDev_FTS.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Category> Categories { get; set; }
 
         public static ApplicationDbContext Create()
         {

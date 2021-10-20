@@ -9,5 +9,6 @@ namespace AppDev_FTS.ViewModels
         public List<ApplicationUser> Staffs { get; set; }
         public List<ApplicationUser> Trainers { get; set; }
         public List<ApplicationUser> Trainees { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
     }
 }

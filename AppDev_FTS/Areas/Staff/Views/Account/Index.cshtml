@@ -21,13 +21,6 @@
 </div>
 
 
-@*<form>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Srearch Trainee by Name and Age" />
-        </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>*@
-
 <h3>Trainee Account</h3>
 <table class="table">
     <thead>
@@ -35,6 +28,7 @@
             <th scope="col">No.</th>
             <th scope="col">User Name</th>
             <th scope="col">Full name</th>
+            <th scope="col">Age</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -42,16 +36,17 @@
         @{int i = 0;}
         @foreach (var trainee in Model.Trainees)
         {
-            <tr>
-                <th scope="row">@{i++;}@i</th>
-                <td>@trainee.UserName</td>
-                <td>@trainee.FullName</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Account", new { id = trainee.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "Delete", "Account", new { id = trainee.Id }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Details", "Details", "Account", new { id = trainee.Id }, new { @class = "btn btn-warning" })
-                </td>
-            </tr>
+        <tr>
+            <th scope="row">@{i++;}@i</th>
+            <td>@trainee.UserName</td>
+            <td>@trainee.FullName</td>
+            <td>@trainee.Age</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Account", new { id = trainee.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "Delete", "Account", new { id = trainee.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Details", "Details", "Account", new { id = trainee.Id }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

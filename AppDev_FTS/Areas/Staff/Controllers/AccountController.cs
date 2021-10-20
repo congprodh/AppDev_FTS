@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AppDev_FTS.Models;
+using AppDev_FTS.Utils;
+using AppDev_FTS.ViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +11,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using AppDev_FTS.Models;
-using AppDev_FTS.Utils;
-using AppDev_FTS.ViewModels;
-using Microsoft.Ajax.Utilities;
-using System;
+
 
 namespace AppDev_FTS.Areas.Staff.Controllers
 {
@@ -62,17 +62,18 @@ namespace AppDev_FTS.Areas.Staff.Controllers
                 {
                     Trainees = await _context.Users
                         .Where(u => u.Roles.Any(r => r.RoleId == traineeRole.Id))
-                        .Where((c => (!String.IsNullOrEmpty(c.FullName) && c.FullName.Contains(searchString)) || searchString.Contains(c.Age.ToString())))
+                        .Where((c => (!String.IsNullOrEmpty(c.FullName) && c.FullName.Contains(searchString)) 
+                                        || searchString.Contains(c.Age.ToString())))
                         .ToListAsync()
                 };
                 return View(data);
-
+                 
                 //users = users.Where(c => c.Age.Contains(searchString)).ToList();
             }
 
             var model = new UsersGroupViewModel
             {
-                Trainees = await _context.Users         
+                Trainees = await _context.Users
                     .Where(u => u.Roles.Any(r => r.RoleId == traineeRole.Id))
                     .ToListAsync(),
             };
@@ -85,7 +86,7 @@ namespace AppDev_FTS.Areas.Staff.Controllers
         {
             var model = new AccountViewModel()
             {
-                Roles = new List<string>() { Role.Trainee}
+                Roles = new List<string>() { Role.Trainee }
             };
 
             return View(model);
@@ -105,7 +106,7 @@ namespace AppDev_FTS.Areas.Staff.Controllers
                 }
                 AddErrors(result);
             }
-            model.Roles = new List<string>() { Role.Trainee};       //load khi submit form
+            model.Roles = new List<string>() { Role.Trainee };       //load khi submit form
 
             return View(model);      // If we got this far, something failed, redisplay form
         }

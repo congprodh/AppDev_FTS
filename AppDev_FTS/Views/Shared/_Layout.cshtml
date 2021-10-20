@@ -32,7 +32,7 @@
                     }
                     @if (User.IsInRole(Role.Staff))
                     {
-                        <li>@Html.ActionLink("Account UserManagement", "Index", "Account", new { Area = "Staff" }, null)</li>
+                        <li>@Html.ActionLink("Trainee Profile", "Index", "Account", new { Area = "Staff" }, null)</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
